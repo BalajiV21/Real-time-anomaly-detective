@@ -1,0 +1,23 @@
+# Environment
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Internal docs
+docu/
+
+# ML models and artifacts
+models/
+*.pkl
+
+# Virtual environments
+.venv/
+venv/
+
+# Package build artifacts
+*.egg-info/
+
+# macOS metadata
+.DS_Store
