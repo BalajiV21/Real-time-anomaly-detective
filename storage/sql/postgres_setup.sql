@@ -1,11 +1,7 @@
--- =============================================================================
--- Regular PostgreSQL tables for anomaly detection results and agent audit trail
--- These are NOT hypertables – they store low-volume, long-lived records.
--- =============================================================================
+-- Regular PostgreSQL tables for anomaly results and agent audit trail.
+-- These are not hypertables; they hold low-volume, long-lived records.
 
--- -----------------------------------------------------------------------------
--- 1. anomaly_logs  –  every detected anomaly event
--- -----------------------------------------------------------------------------
+-- Every detected anomaly event
 CREATE TABLE IF NOT EXISTS anomaly_logs (
     id                   BIGSERIAL    PRIMARY KEY,
     symbol               VARCHAR(20)  NOT NULL,
@@ -26,9 +22,8 @@ CREATE INDEX IF NOT EXISTS idx_anomaly_logs_symbol_ts
 CREATE INDEX IF NOT EXISTS idx_anomaly_logs_severity
     ON anomaly_logs (severity);
 
--- -----------------------------------------------------------------------------
--- 2. root_cause_reports  –  LLM-generated root-cause analysis per anomaly
--- -----------------------------------------------------------------------------
+
+-- AI-generated root cause analysis per anomaly
 CREATE TABLE IF NOT EXISTS root_cause_reports (
     id                BIGSERIAL    PRIMARY KEY,
     anomaly_log_id    BIGINT       REFERENCES anomaly_logs (id),
@@ -51,9 +46,8 @@ CREATE INDEX IF NOT EXISTS idx_root_cause_anomaly_id
 CREATE INDEX IF NOT EXISTS idx_root_cause_symbol_ts
     ON root_cause_reports (symbol, generated_at DESC);
 
--- -----------------------------------------------------------------------------
--- 3. agent_audit_trail  –  step-by-step trace of agent tool calls
--- -----------------------------------------------------------------------------
+
+-- Step-by-step trace of agent tool calls
 CREATE TABLE IF NOT EXISTS agent_audit_trail (
     id           BIGSERIAL    PRIMARY KEY,
     report_id    BIGINT       REFERENCES root_cause_reports (id),

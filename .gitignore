@@ -1,23 +1,38 @@
 # Environment
 .env
 
-# Python cache
+# Python
 __pycache__/
-*.pyc
-
-# Internal docs
-docu/
-
-# ML models and artifacts
-models/
-*.pkl
+*.py[cod]
+*.pyo
+.pytest_cache/
+*.egg-info/
+dist/
+build/
 
 # Virtual environments
 .venv/
 venv/
+env/
 
-# Package build artifacts
-*.egg-info/
+# ML model artifacts
+models/
+*.pkl
 
-# macOS metadata
+# Generated files
+*.pdf
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Spark checkpoints
+/tmp/anomaly_detective/
+
+# Jupyter
+.ipynb_checkpoints/
